@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Todo List</h1>
+
+{% if todos %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for todo in todos %}
+            <tr>
+                <td><a href="{% url 'todo_detail' todo.id %}">{{ todo.title }}</a></td>
+                <td>
+                    <a href="{% url 'todo_update' todo.id %}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{% url 'todo_delete' todo.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No todos available.</p>
+{% endif %}
+
+<a href="{% url 'todo_create' %}" class="btn btn-primary mt-3">Add new Todo</a>
+{% endblock %}
