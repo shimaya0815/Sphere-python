@@ -11,7 +11,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-6+xuj^1wz75_!-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') != 'False'
 
-ALLOWED_HOSTS = ['cb050d38fc4a494a9c2c68f408cc585d.vfs.cloud9.ap-northeast-1.amazonaws.com']
+# Allow all host headers
+ALLOWED_HOSTS = ['cb050d38fc4a494a9c2c68f408cc585d.vfs.cloud9.ap-northeast-1.amazonaws.com', 'sphere-application-9e82ba57c4f8.herokuapp.com', 'localhost']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vfs.cloud9.ap-northeast-1.amazonaws.com',
+    'https://*.herokuapp.com'
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.vfs.cloud9.ap-northeast-1.amazonaws.com',
@@ -101,8 +107,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
