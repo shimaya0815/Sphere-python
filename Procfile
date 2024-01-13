@@ -1,1 +1,1 @@
-web: gunicorn Sphere.wsgi
+web: gunicorn sphere.wsgi
