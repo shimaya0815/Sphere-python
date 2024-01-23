@@ -3,7 +3,7 @@ astroid==2.15.5
 attrs==23.2.0
 autobahn==23.6.2
 Automat==22.10.0
-aws-cfn-bootstrap==2.0
+
 awscli==2.14.5
 awscrt==0.19.19
 Babel==2.9.1
