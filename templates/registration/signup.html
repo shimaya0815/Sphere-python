@@ -1,0 +1,30 @@
+<!-- templates/registration/signup.html -->
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="mb-3">サインアップ</h2>
+        <form method="post" class="border p-4 rounded">
+          {% csrf_token %}
+          <table class="table">
+            {% for field in form %}
+              <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}
+                  {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+          <button type="submit" class="btn btn-primary">サインアップ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

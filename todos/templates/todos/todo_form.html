@@ -1,3 +1,4 @@
+<!--/sphere/todos/templates/todos/todo_form.html-->
 {% extends 'base.html' %}
 
 {% block content %}
@@ -16,5 +17,6 @@
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
-<a href="{% url 'todo_list' %}" class="btn btn-secondary mt-2">Cancel</a>
+<a href="{% url 'todo_list' request.user.office.office_id %}" class="btn btn-secondary mt-2">Cancel</a>
 {% endblock %}
+

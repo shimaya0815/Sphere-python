@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tax Client Details</h1>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <td>{{ tax_client.name }}</td>
+    </tr>
+    <!-- 他のフィールドも同様に表示 -->
+</table>
+
+<a href="{% url 'tax_client_list' request.user.office.office_id %}" class="btn btn-primary mt-3">Back to list</a>
+
+{% endblock %}

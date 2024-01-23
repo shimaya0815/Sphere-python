@@ -1,0 +1,340 @@
+<!-- /sphere/tax_clients/templates/tax_clients/tax_client_form.html -->
+{% extends 'base.html' %}
+{% load widget_tweaks %} <!-- Widget Tweaks ライブラリを読み込む -->
+
+{% block content %}
+
+<div class="container mt-4">
+    <h2>クライアント情報の更新</h2>
+    <div class="client-name">
+        <h3>クライアント名: {{ client.name }}</h3>
+    </div>
+
+    <!-- タブナビゲーション -->
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" href="#basic-info" role="tab" aria-controls="basic-info" aria-selected="true">基本情報</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="contract-info-tab" data-bs-toggle="tab" href="#contract-info" role="tab" aria-controls="contract-info" aria-selected="false">契約情報</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tax-info-tab" data-bs-toggle="tab" href="#tax-info" role="tab" aria-controls="tax-info" aria-selected="false">税務情報</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="financial-info-tab" data-bs-toggle="tab" href="#financial-info" role="tab" aria-controls="financial-info" aria-selected="false">財務情報</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="participation-info-tab" data-bs-toggle="tab" href="#participation-info" role="tab" aria-controls="participation-info" aria-selected="false">関与情報</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="fiscal-year-tab" data-bs-toggle="tab" href="#fiscal-year" role="tab" aria-controls="fiscal-year" aria-selected="false">決算期</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="task-template-tab" data-bs-toggle="tab" href="#task-template" role="tab" aria-controls="task-template" aria-selected="false">タスクテンプレート</a>
+        </li>
+    </ul>
+
+    <!-- タブコンテンツ -->
+    <div class="tab-content" id="myTabContent">
+        <!-- 基本情報タブ -->
+        <div class="tab-pane fade show active" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
+            <form method="post" action="{% url 'basic_info_update' office_id=office_id pk=client.id %}">
+                {% csrf_token %}
+                <table class="table">
+                    <!-- 基本情報タブのフォームフィールド -->
+                    {% for field in basic_info_form %}
+                        <tr>
+                            <th>{{ field.label }}</th>
+                            <td>{{ field|add_class:'form-control' }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit" class="btn btn-primary">更新</button>
+            </form>
+        </div>
+
+        <!-- 契約情報タブ -->
+        <div class="tab-pane fade" id="contract-info" role="tabpanel" aria-labelledby="contract-info-tab">
+            <form method="post" action="{% url 'contract_info_update' office_id=office_id pk=client.id %}">
+                {% csrf_token %}
+                <table class="table">
+                    <!-- 契約情報タブのフォームフィールド -->
+                    {% for field in contract_info_form %}
+                        <tr>
+                            <th>{{ field.label }}</th>
+                            <td>{{ field|add_class:'form-control' }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit" class="btn btn-primary">更新</button>
+            </form>
+        </div>
+
+        <!-- 税務情報タブ -->
+        <div class="tab-pane fade" id="tax-info" role="tabpanel" aria-labelledby="tax-info-tab">
+            <form method="post" action={% url 'tax_info_update' office_id=office_id pk=client.id %}>
+                {% csrf_token %}
+                <table class="table">
+                    <!-- 税務情報タブのフォームフィールド -->
+                    {% for field in tax_info_form %}
+                        <tr>
+                            <th>{{ field.label }}</th>
+                            <td>{{ field|add_class:'form-control' }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit" class="btn btn-primary">更新</button>
+            </form>
+        </div>
+
+        <!-- 財務情報タブ -->
+        <div class="tab-pane fade" id="financial-info" role="tabpanel" aria-labelledby="financial-info-tab">
+            <form method="post" action={% url 'financial_info_update' office_id=office_id pk=client.id %}>
+                {% csrf_token %}
+                <table class="table">
+                    <!-- 財務情報タブのフォームフィールド -->
+                    {% for field in financial_info_form %}
+                        <tr>
+                            <th>{{ field.label }}</th>
+                            <td>{{ field|add_class:'form-control' }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit" class="btn btn-primary">更新</button>
+            </form>
+        </div>
+            <!-- 決算期タブ -->
+            <div class="tab-pane fade" id="fiscal-year" role="tabpanel" aria-labelledby="fiscal-year-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>期</th>
+                            <th>決算年月日</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fiscal_year in fiscal_years %}
+                        <tr>
+                            <td>{{ fiscal_year.period }}</td>
+                            <td>{{ fiscal_year.closing_date|date:"Y/m/d" }}</td>
+                            <td>
+                                <!-- 編集ボタン -->
+                                <a href="{% url 'fiscal_year_update' office_id=request.user.office.office_id client_pk=client.id pk=fiscal_year.id %}" class="btn btn-primary">編集</a>
+                                <a href="{% url 'fiscal_year_delete' office_id=request.user.office.office_id client_pk=client.id pk=fiscal_year.id %}" class="btn btn-danger">削除</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">決算期情報はありません。</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'fiscal_year_add' office_id=request.user.office.office_id client_id=client.id %}" class="btn btn-secondary">新しい決算期を追加</a>
+            </div>
+            <div class="tab-pane fade" id="task-template" role="tabpanel" aria-labelledby="task-template-tab">
+                <h3>タスクテンプレート</h3>
+                <form>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>タスク</th>
+                                <th>作成日付</th>
+                                <th>期限</th>
+                                <th>担当者</th>
+                                <th>承認者</th>
+                                <th>テンプレート</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 月次チェックタスク -->
+                            <tr>
+                                <td>月次チェックタスク</td>
+                                <td><input type="number" class="form-control" name="monthly_check_creation_date" min="1" max="31"></td>
+                                <td><input type="number" class="form-control" name="monthly_check_due_date" min="1" max="31"></td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_assignee">
+                                        <option selected>担当者を選択</option>
+                                        <!-- Userモデルからの担当者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_approver">
+                                        <option selected>承認者を選択</option>
+                                        <!-- Userモデルからの承認者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_template">
+                                        <option selected>テンプレートを選択</option>
+                                        <!-- TaskTemplateモデルからのテンプレートオプション -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- 記帳代行タスク -->
+                            <tr>
+                                <td>記帳代行タスク</td>
+                                <td><input type="number" class="form-control" name="bookkeeping_creation_date" min="1" max="31"></td>
+                                <td><input type="number" class="form-control" name="bookkeeping_due_date" min="1" max="31"></td>
+                                 <td>
+                                    <select class="form-select" name="monthly_check_assignee">
+                                        <option selected>担当者を選択</option>
+                                        <!-- Userモデルからの担当者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_approver">
+                                        <option selected>承認者を選択</option>
+                                        <!-- Userモデルからの承認者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_template">
+                                        <option selected>テンプレートを選択</option>
+                                        <!-- TaskTemplateモデルからのテンプレートオプション -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- 申告書タスク -->
+                            <tr>
+                                <td>申告書タスク</td>
+                                <td><input type="number" class="form-control" name="declaration_creation_date" min="1" max="31"></td>
+                                <td><input type="number" class="form-control" name="declaration_due_date" min="1" max="31"></td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_assignee">
+                                        <option selected>担当者を選択</option>
+                                        <!-- Userモデルからの担当者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_approver">
+                                        <option selected>承認者を選択</option>
+                                        <!-- Userモデルからの承認者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_template">
+                                        <option selected>テンプレートを選択</option>
+                                        <!-- TaskTemplateモデルからのテンプレートオプション -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- 源泉所得税タスク -->
+                            <tr>
+                                <td>源泉所得税タスク</td>
+                                <td><input type="number" class="form-control" name="withholding_tax_creation_date" min="1" max="31"></td>
+                                <td><input type="number" class="form-control" name="withholding_tax_due_date" min="1" max="31"></td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_assignee">
+                                        <option selected>担当者を選択</option>
+                                        <!-- Userモデルからの担当者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_approver">
+                                        <option selected>承認者を選択</option>
+                                        <!-- Userモデルからの承認者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_template">
+                                        <option selected>テンプレートを選択</option>
+                                        <!-- TaskTemplateモデルからのテンプレートオプション -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- 住民税タスク -->
+                            <tr>
+                                <td>住民税タスク</td>
+                                <td><input type="number" class="form-control" name="resident_tax_creation_date" min="1" max="31"></td>
+                                <td><input type="number" class="form-control" name="resident_tax_due_date" min="1" max="31"></td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_assignee">
+                                        <option selected>担当者を選択</option>
+                                        <!-- Userモデルからの担当者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_approver">
+                                        <option selected>承認者を選択</option>
+                                        <!-- Userモデルからの承認者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_template">
+                                        <option selected>テンプレートを選択</option>
+                                        <!-- TaskTemplateモデルからのテンプレートオプション -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <!-- 社会保険タスク -->
+                            <tr>
+                                <td>社会保険タスク</td>
+                                <td><input type="number" class="form-control" name="social_insurance_creation_date" min="1" max="31"></td>
+                                <td><input type="number" class="form-control" name="social_insurance_due_date" min="1" max="31"></td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_assignee">
+                                        <option selected>担当者を選択</option>
+                                        <!-- Userモデルからの担当者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_approver">
+                                        <option selected>承認者を選択</option>
+                                        <!-- Userモデルからの承認者オプション -->
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class="form-select" name="monthly_check_template">
+                                        <option selected>テンプレートを選択</option>
+                                        <!-- TaskTemplateモデルからのテンプレートオプション -->
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function fetchAddress() {
+            var zipcode = document.getElementsByName("zipcode")[0].value.replace("-", "");
+            if (zipcode.length === 7) {
+                fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipcode}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.results) {
+                            document.getElementsByName("prefecture")[0].value = data.results[0].address1;
+                            document.getElementsByName("city")[0].value = data.results[0].address2;
+                            document.getElementsByName("address")[0].value = data.results[0].address3;
+                        }
+                    });
+            }
+        }
+        document.getElementsByName("zipcode")[0].addEventListener("change", fetchAddress);
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var zipcodeField = document.querySelector("input[name='zipcode']");
+        if (zipcodeField) {
+            // 郵便番号フィールドの値をXXX-XXXX形式に変更
+            var formattedZipcode = zipcodeField.value.replace(/^(\d{3})(\d{4})$/, "$1-$2");
+            zipcodeField.value = formattedZipcode;
+
+            // 郵便番号の入力を監視し、自動でハイフンを挿入
+            zipcodeField.addEventListener("input", function() {
+                var currentValue = zipcodeField.value.replace(/[^0-9]/g, "");
+                if (currentValue.length > 3) {
+                    zipcodeField.value = currentValue.slice(0, 3) + "-" + currentValue.slice(3, 7);
+                }
+            });
+        }
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+<!-- #/sphere/templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home - Sphere{% endblock %}
+
+{% block content %}
+    <header class="jumbotron bg-primary text-white">
+        <div class="container text-center">
+            <h1 class="display-4">Sphere</h1>
+            <p class="lead">効率化を実現する会計事務所のパートナー</p>
+        </div>
+    </header>
+
+    <div class="container py-5">
+        <!-- 特徴セクション -->
+        <section class="mb-5">
+            <h2 class="h3 text-center mb-3">特徴</h2>
+            <div class="row">
+                <!-- カード1 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-briefcase mr-2"></i>業務効率化</h5>
+                            <p class="card-text">日々の業務をスムーズにするための機能が満載。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- カード2 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-comments mr-2"></i>円滑なコミュニケーション</h5>
+                            <p class="card-text">チーム内のコミュニケーションを活発化。</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- カード3 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-list-ul mr-2"></i>タスクの明確化</h5>
+                            <p class="card-text">ToDoリストによる明確なタスク管理で、効率的な業務遂行をサポート。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 機能紹介セクション -->
+        <section class="mb-5">
+        <h2 class="h3 text-center mb-3">機能紹介</h2>
+        <p>クライアント管理、ドキュメント共有、スケジュール管理、タスク自動化など、会計事務所のあらゆるニーズに応えます。</p>
+        </section>
+            <!-- 料金プランセクション -->
+    <section class="mb-5">
+        <h2 class="h3 text-center mb-3">料金プラン</h2>
+        <p>ニーズに合わせた柔軟な料金プランをご用意。どんな規模の組織にもフィットするソリューションを提供します。</p>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <section class="mb-5">
+        <h2 class="h3 text-center mb-3">お問い合わせ</h2>
+        <p>ご不明点や導入に関するご相談は、お気軽にお問い合わせください。</p>
+    </section>
+    </div>
+    
+    <!-- フッターセクション -->
+    <footer class="bg-light text-muted py-3">
+        <div class="container text-center">
+            <p>&copy; Sphere 2023</p>
+        </div>
+    </footer>
+
+<!-- Bootstrap JavaScriptの読み込み -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+{% endblock %}

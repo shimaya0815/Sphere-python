@@ -1,31 +1,68 @@
+<!--/sphere/todos/templates/todos/todo_list.html-->
+
 {% extends 'base.html' %}
 
 {% block content %}
 <h1>Todo List</h1>
 
-{% if todos %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for todo in todos %}
-            <tr>
-                <td><a href="{% url 'todo_detail' todo.id %}">{{ todo.title }}</a></td>
-                <td>
-                    <a href="{% url 'todo_update' todo.id %}" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="{% url 'todo_delete' todo.id %}" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No todos available.</p>
-{% endif %}
+<form method="get" class="form-inline mb-3">
+    <div class="container-fluid">
+        <div class="row">
+            {% for field in filter_form %}
+            <div class="col-md-3 col-sm-6">{{ field.label_tag }} {{ field }}</div>
+            {% endfor %}
+            <div class="col-md-3 col-sm-6 mt-2"><button type="submit" class="btn btn-primary">Filter</button></div>
+        </div>
+    </div>
+</form>
 
-<a href="{% url 'todo_create' %}" class="btn btn-primary mt-3">Add new Todo</a>
+{% if todos %}
+    <div style="overflow-x: auto;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Recurrence</th>
+                    <th>Assignee</th>
+                    <th>Approver</th>
+                    <th>Client</th>
+                    <th>Fiscal Year</th>
+                    <th>Category</th>
+                    <th>Deadline</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for todo in todos %}
+                <tr>
+                    <td>{{ todo.title }}</td>
+                    <td>{{ todo.description }}</td>
+                    <td>{{ todo.status }}</td>
+                    <td>{{ todo.recurrence }}</td>
+                    <td>{{ todo.assignee }}</td>
+                    <td>{{ todo.approver }}</td>
+                    <td>{{ todo.client }}</td>
+                    <td>{{ todo.fiscal_year }}</td>
+                    <td>{{ todo.category }}</td>
+                    <td>{{ todo.deadline|date:"Y/m/d" }}</td>
+                    <td>{{ todo.start_time|date:"H:i" }}</td>
+                    <td>{{ todo.end_time|date:"H:i" }}</td>
+                    <td>
+                        <a href="{% url 'todo_update' request.user.office.office_id todo.id %}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{% url 'todo_delete' request.user.office.office_id todo.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>No todos available.</p>
+    {% endif %}
+
+<!-- (追加ボタンのコード) -->
 {% endblock %}

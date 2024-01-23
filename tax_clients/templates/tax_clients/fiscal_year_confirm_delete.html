@@ -1,0 +1,13 @@
+<!--/sphere/tax_clients/templates/tax_clients/fiscal_year_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Are you sure you want to delete "{{ object }}"?</h1>
+
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete it</button>
+</form>
+
+<a href="{% url 'tax_client_detail' office_id=request.user.office.office_id pk=object.client.id %}" class="btn btn-secondary mt-2">Cancel</a>
+{% endblock %}

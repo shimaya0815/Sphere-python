@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tax Clients List</h1>
+
+{% if tax_clients %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in tax_clients %}
+            <tr>
+                <td><a href="{% url 'tax_client_detail' office_id=office_id pk=client.id %}">{{ client.name }}</a></td>
+                <td>
+                    <a href="{% url 'tax_client_update' office_id=office_id pk=client.id %}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{% url 'tax_client_delete' office_id=office_id pk=client.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No tax clients available.</p>
+{% endif %}
+
+{% if office_id %}
+    <a href="{% url 'tax_client_create' office_id=office_id %}" class="btn btn-primary mt-3">Add new Tax Client</a>
+{% endif %}
+
+{% endblock %}

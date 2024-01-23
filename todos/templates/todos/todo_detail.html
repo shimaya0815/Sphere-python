@@ -1,3 +1,5 @@
+<!--/sphere/todos/templates/todos/todo_detail.html-->
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -13,14 +15,35 @@
         <td>{{ todo.description }}</td>
     </tr>
     <tr>
-        <th>Completed</th>
-        <td>{{ todo.completed }}</td>
+        <th>Status</th>
+        <td>{{ todo.status }}</td>
     </tr>
     <tr>
-        <th>Created by</th>
-        <td>{{ todo.user.username }}</td>
+        <th>Assignee</th>
+        <td>{{ todo.assignee }}</td>
     </tr>
+    <tr>
+        <th>Approver</th>
+        <td>{{ todo.approver }}</td>
+    </tr>
+    <tr>
+        <th>Client</th>
+        <td>{{ todo.client }}</td>
+    </tr>
+    <tr>
+        <th>Fiscal Year</th>
+        <td>{{ todo.fiscal_year }}</td>
+    </tr>
+    <tr>
+        <th>Category</th>
+        <td>{{ todo.category }}</td>
+    </tr>
+    <tr>
+        <th>Deadline</th>
+        <td>{{ todo.deadline }}</td>
+    </tr>
+    <!-- その他のフィールドを必要に応じて追加 -->
 </table>
 
-<a href="{% url 'todo_list' %}" class="btn btn-primary mt-3">Back to list</a>
+<a href="{% url 'todo_list' request.user.office.office_id %}" class="btn btn-primary mt-3">Back to list</a>
 {% endblock %}

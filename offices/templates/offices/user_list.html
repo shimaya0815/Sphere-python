@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>ユーザー一覧</h1>
+    
+    <a href="{% url 'user_invite' office_id=request.user.office.office_id %}" class="btn btn-primary mb-3">ユーザー招待</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ユーザー名</th>
+                <th>メールアドレス</th>
+                <!-- その他の情報 -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <!-- その他の情報 -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

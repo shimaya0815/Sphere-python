@@ -1,13 +1,31 @@
+<!--/sphere/templates/registration/login.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container">
-    <h2>Login</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Login</button>
-      <input type="hidden" name="next" value="{{ next }}" />
-    </form>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class="mb-3">ログイン</h2>
+        <form method="post" class="border p-4 rounded">
+          {% csrf_token %}
+          <table class="table">
+            <tr>
+              <td>{{ form.office_id.label }}</td>
+              <td>{{ form.office_id }}</td>
+            </tr>
+            <tr>
+              <td>{{ form.username.label }}</td>
+              <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+              <td>{{ form.password.label }}</td>
+              <td>{{ form.password }}</td>
+            </tr>
+          </table>
+          <button type="submit" class="btn btn-primary">ログイン</button>
+          <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+      </div>
+    </div>
   </div>
 {% endblock %}

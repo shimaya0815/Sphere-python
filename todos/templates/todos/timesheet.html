@@ -1,0 +1,46 @@
+<!--sphere/todos/templates/todos/timesheet.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">タイムシート</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title">今日の作業</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>タスク</th>
+                        <th>開始時間</th>
+                        <th>終了時間</th>
+                        <th>作業時間</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in today_tasks %}
+                    <tr>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.start_time }}</td>
+                        <td>{{ task.end_time }}</td>
+                        <td>{{ task.duration }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">今日のタスクはありません。</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p class="card-text">合計作業時間: {{ today_total }}</p>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">週間作業時間合計</h2>
+            <p class="card-text">{{ week_total }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
