@@ -35,7 +35,6 @@ jsonpatch==1.21
 jsonpointer==2.0
 jsonschema==3.2.0
 lazy-object-proxy==1.10.0
-libcomps==0.1.18
 lockfile==0.12.2
 MarkupSafe==1.1.1
 mccabe==0.7.0
