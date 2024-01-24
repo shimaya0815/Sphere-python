@@ -69,7 +69,6 @@ ruamel.yaml.clib==0.1.2
 service-identity==24.1.0
 six==1.15.0
 sqlparse==0.4.4
-support-info==1.0
 tomli==2.0.1
 tomlkit==0.12.3
 Twisted==23.10.0
