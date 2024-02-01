@@ -2,7 +2,8 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import ExpressionWrapper, F, Sum, DurationField
-from tax_clients.models import TaxClient, FiscalYear  # TaxClient と FiscalYear のインポート
+from tax_clients.models import TaxClient, FiscalYear
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
@@ -30,6 +31,11 @@ class Todo(models.Model):
     fiscal_year = models.ForeignKey(FiscalYear, on_delete=models.SET_NULL, null=True, blank=True)
     category = models.CharField(max_length=100, null=True, blank=True)
     deadline = models.DateField(null=True, blank=True)
+    priority = models.IntegerField(null=True, blank=True, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(30)  
+    ])
+    priority = models.IntegerField(null=True, blank=True)
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # ユーザー
